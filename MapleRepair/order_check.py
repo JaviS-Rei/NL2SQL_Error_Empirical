@@ -10,7 +10,7 @@ SQL_TEMPLATE = "SELECT DISTINCT `{column}` FROM `{table}` WHERE `{column}` IS NO
 
 def execute_sql(db_path: str, sql: str):
     try:
-        with sqlite3.connect(db_path, isolation_level=None) as conn:
+        with sqlite3.connect(f'file:{db_path}?mode=ro', uri=True, isolation_level=None) as conn:
             cursor = conn.cursor()
             cursor.execute(sql)
             return cursor.fetchall()

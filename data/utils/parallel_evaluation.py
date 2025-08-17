@@ -14,7 +14,7 @@ TIMEOUT = 120
 @func_set_timeout(TIMEOUT)
 def _evaluate_sql(predicted_sql, ground_truth, db_path):
     # Connect to the database
-    conn = sqlite3.connect(db_path)
+    conn = sqlite3.connect(f'file:{db_path}?mode=ro', uri=True)
     conn.text_factory = lambda b: b.decode(errors="ignore")  # avoid gbk/utf8 error, copied from sql-eval.exec_eval
     cursor = conn.cursor()
     cursor.execute(predicted_sql)

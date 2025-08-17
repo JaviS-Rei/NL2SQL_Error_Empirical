@@ -5,7 +5,7 @@ def get_foreign_keys(database_path, pk_dict):
     """
     dataset indepandent
     """
-    with sqlite3.connect(database_path, isolation_level=None) as conn:
+    with sqlite3.connect(f'file:{database_path}?mode=ro', uri=True, isolation_level=None) as conn:
         cursor = conn.cursor()
         
         cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%';")
@@ -49,7 +49,7 @@ def get_primary_keys(database_path):
     """
     dataset indepandent
     """
-    with sqlite3.connect(database_path, isolation_level=None) as conn:
+    with sqlite3.connect(f'file:{database_path}?mode=ro', uri=True, isolation_level=None) as conn:
         cursor = conn.cursor()
         
         cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%';")

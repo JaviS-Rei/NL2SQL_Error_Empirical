@@ -12,7 +12,8 @@ def get_pkfk(db_id:str) -> dict:
     return pkfk_info
 
 def get_schema(db_id:str):
-    with sqlite3.connect(Path(db_root_path) / f'{db_id}/{db_id}.sqlite', isolation_level=None) as conn:
+    db_path = f"{db_root_path}/{db_id}/{db_id}.sqlite"
+    with sqlite3.connect(f'file:{db_path}?mode=ro', uri=True, isolation_level=None) as conn:
         cursor = conn.cursor()
 
         # Get the list of all tables

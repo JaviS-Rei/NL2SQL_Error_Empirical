@@ -145,7 +145,7 @@ class SQLiteTableColumnExtractor(DeprecationWarning):
         """
         连接到 SQLite 数据库。
         """
-        self.connection = sqlite3.connect(self.db_path, isolation_level=None)
+        self.connection = sqlite3.connect(f'file:{self.db_path}?mode=ro', uri=True, isolation_level=None)
 
     def _disconnect(self):
         """

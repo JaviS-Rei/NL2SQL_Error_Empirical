@@ -353,7 +353,7 @@ class Schema_Prompt_Builder():
                 if is_pk(col) or is_fk(col):
                     important_key_name_set.add(col)
 
-        conn = sqlite3.connect(self.db_path, isolation_level=None)
+        conn = sqlite3.connect(f'file:{self.db_path}?mode=ro', uri=True, isolation_level=None)
         conn.text_factory = lambda b: b.decode(errors="ignore")  # avoid gbk/utf8 error, copied from sql-eval.exec_eval
         cursor = conn.cursor()
         
@@ -807,7 +807,7 @@ class Database():
     
     @func_set_timeout(120)
     def _execute_query(self, query:str, fetch: Optional[Union[str, int]] = "all") -> Optional[List]:
-        with sqlite3.connect(self.db_path, isolation_level=None) as conn:
+        with sqlite3.connect(f'file:{self.db_path}?mode=ro', uri=True, isolation_level=None) as conn:
             conn.text_factory = lambda b: b.decode(errors="ignore")  # avoid gbk/utf8 error, copied from sql-eval.exec_eval
             cursor = conn.cursor()
             cursor.execute(query)
@@ -834,7 +834,7 @@ class Database():
         """
         query = f"EXPLAIN {query}"
         self.execute_query(query, fetch=None, idx=idx)
-        # with sqlite3.connect(self.db_path, isolation_level=None) as conn:
+        # with sqlite3.connect(f'file:{self.db_path}?mode=ro', uri=True, isolation_level=None) as conn:
         #     cursor = conn.cursor()
         #     query = f"EXPLAIN {query}"
         #     cursor.execute(query)
