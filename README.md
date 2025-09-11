@@ -1,10 +1,10 @@
-# Demystifying and Repairing In-Context-Learning-Based Text-to-SQL Errors
+# Understanding, Detecting, and Repairing Real-World In-Context-Learning-Based Text-to-SQL Errors
 
-Artifact repository for the paper [_Demystifying and Repairing In-Context-Learning-Based Text-to-SQL Errors_]().
+Artifact repository for the paper [_Understanding, Detecting, and Repairing Real-World In-Context-Learning-Based Text-to-SQL Errors_]().
 
 ---
 
-## MapleRepair
+## MapleDoctor
 An automated error detection and repairing tool for text-to-SQL tasks, with minimal mis-repairs. 
 
 ### Install
@@ -45,11 +45,11 @@ As for hardware dependencies, 32 GB of memory is enough.
 
 #### Start from data we provided (***Recommended, Faster than starting from scratch!!!***)
 
-1. Download sampled benchmarks: [BIRD](https://drive.google.com/file/d/198NtXgoGuRn9_70ITHTiPVZqNIb_gssM/view?usp=sharing) and [SPIDER](https://drive.google.com/file/d/1kslOOk9I2-ptRDxIHpnZAdLTRn0wg5Qy/view?usp=sharing)
+1. Download sampled benchmarks: [BIRD](https://drive.google.com/file/d/1vvwgeJzLOZjON-CDkf8BjwOSNgXY5yxq/view?usp=sharing), [SPIDER](https://drive.google.com/file/d/1VBJXg9eH9AJaRPnXbiPAC4OWMjv3OkoA/view?usp=sharing) and [SCIENCE_BENCHMARK](https://drive.google.com/file/d/10SSKYdhw0A_ukN8jgBw1UCryVdm1VNMt/view?usp=sharing)
    
    ***You should use sampled benchmarks provided by us!*** OR you should follow the instruction of ***start from scratch***
-2. Download [vector database data for MapleRepair](https://drive.google.com/file/d/103b9TpIFOIBdSn0NHzCvbl5AfxJlq2MX/view?usp=sharing)
-3. Download [database cache for MapleRepair](https://drive.google.com/file/d/104xG4CmYxfKWvX6aVIuEMmze1WkDGptc/view?usp=sharing)
+2. Download [vector database data for MapleRepair](https://drive.google.com/file/d/112yzKohY5K54ubnJRBELmu7aOqaaN6J7/view?usp=sharing)
+3. Download [database cache for MapleRepair](https://drive.google.com/file/d/1WTd_5cHMVYdzUgTQgaUgqnjGilRxUrMW/view?usp=sharing)
 4. Unzip and organize them as follows:
 ```
 NL2SQL_ERROR_EMPIRICAL

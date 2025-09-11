@@ -20,6 +20,11 @@ class Suspicious_Repairer(RepairerBase):
         self.empty_prompt = Empty_Result_Prompt()
         self.single_null_prompt = Only_Single_NULL_Prompt()
         self.suspicious_type:Suspicious_Type = None
+        
+        self.empty_success_detected = []
+        self.single_null_success_detected = []
+        self.empty_false_detecting = []
+        self.single_null_false_detecting = []
     
     def detect(self, sql: SQL, gold_sql: str, db_id: str, originalres: int) -> bool:
         if not sql.executable:
@@ -37,12 +42,30 @@ class Suspicious_Repairer(RepairerBase):
             # empty return
             self.suspicious_type = Suspicious_Type.Empty_Result
             self.detect_update(sql, gold_sql, db_id, True, originalres)
+            # additional logging
+            if originalres == 1:
+                self.empty_false_detecting.append(
+                    (sql.question_id, sql.statement, gold_sql, db_id, originalres)
+                )
+            else:
+                self.empty_success_detected.append(
+                    (sql.question_id, sql.statement, gold_sql, db_id, originalres)
+                )
             return True
         elif len(sql_result) == 1:
             if sql_result[0][0] is None:
                 # just return NULL
                 self.suspicious_type = Suspicious_Type.Only_Single_NULL
                 self.detect_update(sql, gold_sql, db_id, True, originalres)
+                # additional logging
+                if originalres == 1:
+                    self.single_null_false_detecting.append(
+                        (sql.question_id, sql.statement, gold_sql, db_id, originalres)
+                    )
+                else:
+                    self.single_null_success_detected.append(
+                        (sql.question_id, sql.statement, gold_sql, db_id, originalres)
+                    )
                 return True
         return False
     

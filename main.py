@@ -13,9 +13,10 @@ import argparse
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--result_path", type=str, required=True)
-    parser.add_argument("--before", action="store_true")
-    parser.add_argument("--after", action="store_true")
-    parser.add_argument("--LLMdisable", action="store_true")
+    parser.add_argument("--output_suffix", type=str, default="")
+    parser.add_argument("--before", action="store_true", help="Detecting and repairing queries before repairing")
+    parser.add_argument("--after", action="store_true", help="Detecting and repairing queries after repairing")
+    parser.add_argument("--LLMdisable", action="store_true", help="Disable LLM when repairing")
     args = parser.parse_args()
     before_flag = args.before
     after_flag = args.after
@@ -30,7 +31,7 @@ if __name__ == "__main__":
     final_repaired_result = []
     
     results_list = read_json(result_path)
-    
+
     R = MapleRepair(result_root_dir=result_root_dir, LLM_enable=args.LLMdisable)
     
     exception_dict = {}
@@ -41,7 +42,7 @@ if __name__ == "__main__":
         db_id = result['db_id']
         db:Database = DBs[db_id]
         question = result['question']
-        evidence = result['evidence']
+        evidence = result['evidence'] if 'evidence' in result else ""
         
         idx = result['idx']
         gold_sql = result['gold']

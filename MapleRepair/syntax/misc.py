@@ -32,6 +32,8 @@ class Misc_Execution_Failure_Repairer(RepairerBase):
         
         if sql.executable:
             detect = False
+        else:
+            ...
             
         self.detect_update(sql, sql_gold, db_id, detect, originalres)
         return detect

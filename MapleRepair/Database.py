@@ -1071,6 +1071,21 @@ class Database():
             return True
         except NoSuchColumnError:
             return False
+        
+    def is_column_in_any_table(self, column_name:str) -> bool:
+        """
+        Whether column_name in database (in any table)
+        
+        Args:
+            column_name (str): case insensitive
+        Returns:
+            bool
+        """
+        for table in self.schema.keys():
+            for column in self.schema[table].keys():
+                if column.lower() == column_name.lower():
+                    return True
+        return False
 
     def get_fk_from_table(self, table_name:str) -> dict:
         """

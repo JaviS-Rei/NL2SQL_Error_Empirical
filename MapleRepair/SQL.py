@@ -137,7 +137,8 @@ class SQL():
             
             # some literal will be accidentally parsed to column, we make fix here. 
             for col_exp in self.parsed.find_all(sqlglot.expressions.Column):
-                if "'" in col_exp.name:
+                # if col_exp has no table identifier and col_exp is quoted and col_exp is not in database
+                if not col_exp.table and not DBs[self.db_id].is_column_in_any_table(col_exp.name) and col_exp.args['this'].quoted:
                     col_exp.replace(sqlglot.expressions.Literal.string(col_exp.name))
                     
             # format here! quotation_hack will be removed here!

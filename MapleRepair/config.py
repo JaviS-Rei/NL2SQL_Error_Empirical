@@ -37,8 +37,9 @@ print(f"default_model: {default_model}")
 db_cache_dir = os.getenv('DB_CACHE_DIR')
 print(f"db_cache_dir: {db_cache_dir}")
 
-result_root_dir = Path('results') / datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
+result_root_dir = Path('results') / f'{datetime.now().strftime("%Y-%m-%d-%H-%M-%S")} {dataset} {data_split}'
 os.makedirs(result_root_dir, exist_ok=True)
+print(f"result_root_dir: {result_root_dir}")
 
 generalizability_settings = [
     {'DATASET': 'BIRD', 'DATA_SPLIT': 'TRAIN'},

@@ -188,7 +188,7 @@ class MapleRepair():
             self.logic_repairers,
             self.convention_repairers,
             self.semantic_repairers,
-            self.output_aligners
+            # self.output_aligners
         ):
             for repairer in x_repairers:
                 for idx, _, _, _, _ in repairer.false_detecting:
@@ -220,9 +220,9 @@ class MapleRepair():
             repairers (List[Repairer]): 
         """
         x_repairers = [
-            # self.aor, self.fhr,
+            self.aor, self.fhr,
             self.nscr.anur, self.nscr.cser, self.nscr.mjr, self.nscr.mtcr,  # no_such_column
-            # self.mefr,
+            self.mefr,
             self.dcr, self.er, self.nvr,
             self.dtfr, self.icr, self.iir, self.ijr, self.cr,
             # self.susr,
@@ -241,6 +241,25 @@ class MapleRepair():
             SUMUP['All detection'] += detect_sum
             repairer_statistics[type(repairer).__name__] = {"All detection": detect_sum, "TP": tp, "FP": fp, "OVERALL": overall}
             print(f"{type(repairer).__name__} -> TP: {tp}, FP: {fp}, OVERALL: {overall}, All detection: {detect_sum}")
+        
+        # suspicious repairer
+        f = {"Empty result": {"TP": self.susr.empty_success_detected, "FP": self.susr.empty_false_detecting},
+             "Single NULL": {"TP": self.susr.single_null_success_detected, "FP": self.susr.single_null_false_detecting}}
+        for error_type, v in f.items():
+            tp = len(v['TP'])
+            fp = len(v['FP'])
+            overall = tp - fp
+            detect_sum = tp + fp
+            SUMUP['TP'] += tp
+            SUMUP['FP'] += fp
+            SUMUP['OVERALL'] += overall
+            SUMUP['All detection'] += detect_sum
+            repairer_statistics[error_type] = {"All detection": detect_sum, "TP": tp, "FP": fp, "OVERALL": overall}
+            print(f"{error_type} -> TP: {tp}, FP: {fp}, OVERALL: {overall}, All detection: {detect_sum}")
+        
+        assert len(self.susr.success_detected) == len(self.susr.empty_success_detected) + len(self.susr.single_null_success_detected)
+        assert len(self.susr.false_detecting) == len(self.susr.empty_false_detecting) + len(self.susr.single_null_false_detecting)
+
         print("+++ SUM UP +++")
         pprint(SUMUP)
         repairer_statistics['SUMUP'] = {"All detection": SUMUP['All detection'], "TP": SUMUP['TP'], "FP": SUMUP['FP'], "OVERALL": SUMUP['OVERALL']}
