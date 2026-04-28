@@ -1,6 +1,7 @@
 # Understanding, Detecting, and Repairing Real-World In-Context-Learning-Based Text-to-SQL Errors
 
-Artifact repository for the paper [_Understanding, Detecting, and Repairing Real-World In-Context-Learning-Based Text-to-SQL Errors_]().
+Artifact repository for the paper [_Understanding, Detecting, and Repairing Real-World In-Context-Learning-Based Text-to-SQL Errors_](Text_to_SQL_fse26.pdf), accepted at _FSE 2026_, Montreal, Canada. 
+Authors are Jiawei Shen*, Chengcheng Wan*, Ruoyi Qiao, Jiazhen Zou, Hang Xu, Yuchen Shao, Yueling Zhang, Weikai Miao, and Geguang Pu.
 
 ---
 
